@@ -1,0 +1,48 @@
+Таблицы и их атрибуты:
+
+1. Products (Номенклатура)
+    id (PK)
+    name (VARCHAR)
+    quantity (INT)
+    price (DECIMAL)
+    category_id (FK → Categories.id)
+
+2. Categories (Каталог, Adjacency List)
+    id (PK)
+    name (VARCHAR)
+    parent_id (FK → Categories.id, NULL если корневая категория)
+
+3. Customers (Клиенты)
+    id (PK)
+    name (VARCHAR)
+    address (VARCHAR)
+
+4. Orders (Заказы)
+    id (PK)
+    customer_id (FK → Customers.id)
+    order_date (DATE / DATETIME)
+    total_price (DECIMAL)
+    status (VARCHAR)
+
+5. OrderItems (Состав заказа)
+    id (PK)
+    order_id (FK → Orders.id)
+    product_id (FK → Products.id)
+    quantity (INT)
+    price (DECIMAL)
+
+Связи между таблицами:
+1.  Products ↔ Categories – Many-to-One
+    Каждому продукту соответствует одна категория, категория может включать много продуктов.
+
+2.  Categories ↔ Categories (Adjacency List) – One-to-Many
+    parent_id указывает на родительскую категорию. Если NULL → корневая категория.
+
+3.  Orders ↔ Customers – Many-to-One
+    Каждый заказ принадлежит одному клиенту, клиент может иметь много заказов.
+
+4.  OrderItems ↔ Orders – Many-to-One
+    Один заказ может включать много позиций (OrderItems).
+
+5.  OrderItems ↔ Products – Many-to-One
+    Каждая позиция заказа ссылается на один продукт, один продукт может быть в нескольких заказах.
