@@ -66,4 +66,5 @@ SELECT
     orig_cnt AS cnt
 FROM category_path
 WHERE parent_id is NULL
+ORDER BY cnt DESC
 
